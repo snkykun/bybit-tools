@@ -169,9 +169,9 @@ export default {
             let options = {
               params: this.signData(data),
             };
-            let res = await axios.get(this.url + 'open-api/order/list',
+            let res = await axios.get(this.url + '/v2/private/order/list',
                 options);
-            if (res.data.ret_msg === 'ok') {
+            if (res.data.ret_msg === 'OK') {
               if (res.data.result.data) {
                 this.openOrders = this.openOrders.concat(res.data.result.data);
               }
@@ -198,35 +198,35 @@ export default {
         disablePositionInterval() {
           clearInterval(this.positionInterval);
         },
-        async getPosition() {
-          try {
-            let data = {};
-            let options = {
-              params: this.signData(data),
-            };
-            let res = await axios.get(this.url + 'position/list',
-                options);
-            if (res.data.ret_msg === 'ok') {
-              // console.log(res.data.result.filter(pos => pos.symbol === this.currentSymbol && pos.size > 0)) ;
-              // console.log(res.data) ;
-              this.walletBalance = res.data.result.filter(
-                  pos => pos.symbol === this.currentSymbol)[0].wallet_balance;
-              this.openPosition = res.data.result.filter(
-                  pos => pos.symbol === this.currentSymbol && pos.size > 0)[0];
-            } else {
-              console.error(res);
-              this.$notify({
-                text: res.data.ret_msg +
-                    ((res.data.ret_code === 10002) ? '<br> server_time : ' +
-                        res.data.time_now + '<br> request_time : ' +
-                        data.timestamp : ''),
-                type: 'error',
-              });
-            }
-          } catch (e) {
-            console.error(e);
-          }
-        },
+        // async getPosition() {
+        //   try {
+        //     let data = {};
+        //     let options = {
+        //       params: this.signData(data),
+        //     };
+        //     let res = await axios.get(this.url + 'v2/private/position/list',
+        //         options);
+        //     if (res.data.ret_msg === 'OK') {
+        //       // console.log(res.data.result.filter(pos => pos.symbol === this.currentSymbol && pos.size > 0)) ;
+        //       // console.log(res.data) ;
+        //       this.walletBalance = res.data.result.filter(
+        //           pos => pos.symbol === this.currentSymbol)[0].available_balance;
+        //       this.openPosition = res.data.result.filter(
+        //           pos => pos.symbol === this.currentSymbol && pos.size > 0)[0];
+        //     } else {
+        //       console.error(res);
+        //       this.$notify({
+        //         text: res.data.ret_msg +
+        //             ((res.data.ret_code === 10002) ? '<br> server_time : ' +
+        //                 res.data.time_now + '<br> request_time : ' +
+        //                 data.timestamp : ''),
+        //         type: 'error',
+        //       });
+        //     }
+        //   } catch (e) {
+        //     console.error(e);
+        //   }
+        // },
         marketClosePosition() {
           this.placeOrder({
             side: this.openPosition.side === 'Buy' ? 'Sell' : 'Buy',
@@ -248,7 +248,7 @@ export default {
                 this.url + 'open-api/position/trading-stop',
                 this.signData(data));
             console.log(res);
-            if (res.data.ret_msg === 'ok') {
+            if (res.data.ret_msg === 'OK') {
               this.$notify({
                 text: 'Trading stops changed',
                 type: 'success',
