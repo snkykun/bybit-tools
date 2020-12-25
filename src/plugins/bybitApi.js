@@ -204,13 +204,13 @@ export default {
         //     let options = {
         //       params: this.signData(data),
         //     };
-        //     let res = await axios.get(this.url + 'v2/private/position/list',
+        //     let res = await axios.get(this.url + 'v2/private/order/list',
         //         options);
         //     if (res.data.ret_msg === 'OK') {
         //       // console.log(res.data.result.filter(pos => pos.symbol === this.currentSymbol && pos.size > 0)) ;
         //       // console.log(res.data) ;
         //       this.walletBalance = res.data.result.filter(
-        //           pos => pos.symbol === this.currentSymbol)[0].available_balance;
+        //           pos => pos.symbol === this.currentSymbol)[0];
         //       this.openPosition = res.data.result.filter(
         //           pos => pos.symbol === this.currentSymbol && pos.size > 0)[0];
         //     } else {
